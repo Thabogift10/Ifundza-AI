@@ -1,0 +1,396 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1520 1180" width="100%" height="100%" style="background-color: #F8FAFC; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.08" />
+    </filter>
+    <filter id="actorShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.1" />
+    </filter>
+    <marker id="incArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 2 2 L 10 6 L 2 10" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="extArrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 2 2 L 10 6 L 2 10" fill="none" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Title Header -->
+  <g id="header">
+    <rect x="30" y="20" width="1460" height="75" rx="12" fill="#0F172A" filter="url(#cardShadow)"/>
+    <text x="55" y="48" fill="#F8FAFC" font-size="21" font-weight="bold">iFundza AI — UML Use Case Diagram (Updated Architecture)</text>
+    <text x="55" y="72" fill="#94A3B8" font-size="13">Flow A: Learner Real-time Screenshot/Photo Vision Translation (Primary) | Flow B: Teacher Batch Paper Translation</text>
+    <rect x="1330" y="38" width="135" height="30" rx="6" fill="#0284C7"/>
+    <text x="1397" y="58" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="bold">Multimodal AI</text>
+  </g>
+
+  <!-- System Boundary -->
+  <g id="systemBoundary">
+    <rect x="260" y="115" width="990" height="1035" rx="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2.5" filter="url(#cardShadow)"/>
+    <rect x="260" y="115" width="990" height="42" rx="16" fill="#F1F5F9" />
+    <rect x="260" y="141" width="990" height="16" fill="#F1F5F9" />
+    <line x1="260" y1="157" x2="1250" y2="157" stroke="#CBD5E1" stroke-width="1.5" />
+    <text x="285" y="142" fill="#0F172A" font-size="15" font-weight="bold">SYSTEM BOUNDARY: iFundza AI Platform</text>
+    <text x="1225" y="142" text-anchor="end" fill="#64748B" font-size="12">Gemini 2.5 Flash Vision • Postgres/Supabase • n8n Pipelines</text>
+  </g>
+
+  <!-- Association Lines: Learner (Main Actor) -->
+  <g id="lines-learner" stroke="#94A3B8" stroke-width="1.6">
+    <line x1="160" y1="260" x2="310" y2="180" />
+    <line x1="160" y1="260" x2="310" y2="260" stroke="#059669" stroke-width="2"/>
+    <line x1="160" y1="260" x2="310" y2="345" stroke="#059669" stroke-width="2"/>
+    <line x1="160" y1="260" x2="310" y2="430" />
+    <line x1="160" y1="260" x2="310" y2="515" />
+    <line x1="160" y1="260" x2="310" y2="600" />
+    <line x1="160" y1="260" x2="310" y2="685" />
+    <line x1="160" y1="260" x2="635" y2="515" stroke="#059669" stroke-width="1.8"/>
+  </g>
+
+  <!-- Association Lines: Teacher -->
+  <g id="lines-teacher" stroke="#94A3B8" stroke-width="1.5">
+    <line x1="160" y1="620" x2="310" y2="180" />
+    <line x1="160" y1="620" x2="310" y2="770" />
+    <line x1="160" y1="620" x2="310" y2="855" />
+    <line x1="160" y1="620" x2="310" y2="940" />
+    <line x1="160" y1="620" x2="635" y2="770" />
+    <line x1="160" y1="620" x2="310" y2="1025" />
+  </g>
+
+  <!-- Association Lines: Parent -->
+  <g id="lines-parent" stroke="#94A3B8" stroke-width="1.5">
+    <line x1="160" y1="880" x2="310" y2="180" />
+    <line x1="160" y1="880" x2="635" y2="685" />
+    <line x1="160" y1="880" x2="635" y2="855" />
+  </g>
+
+  <!-- Association Lines: Admin -->
+  <g id="lines-admin" stroke="#94A3B8" stroke-width="1.5">
+    <line x1="160" y1="1040" x2="310" y2="180" />
+    <line x1="160" y1="1040" x2="635" y2="940" />
+    <line x1="160" y1="1040" x2="635" y2="1025" />
+    <line x1="160" y1="1040" x2="940" y2="1025" />
+  </g>
+
+  <!-- Association Lines: AI Engine & External Systems -->
+  <g id="lines-systems" stroke="#8B5CF6" stroke-width="1.8">
+    <!-- AI Multimodal to UC19, UC21, UC23, UC06 -->
+    <line x1="1310" y1="360" x2="845" y2="300" />
+    <line x1="1310" y1="360" x2="845" y2="400" />
+    <line x1="1310" y1="360" x2="1140" y2="410" />
+    <line x1="1310" y1="360" x2="845" y2="515" />
+    <!-- Notification Gateway to UC24, UC25 -->
+    <line x1="1310" y1="820" x2="1140" y2="515" stroke="#10B981" />
+    <line x1="1310" y1="820" x2="1140" y2="855" stroke="#10B981" />
+  </g>
+
+  <!-- <<include>> and <<extend>> Relationships -->
+  <g id="relationships">
+    <!-- UC02 -> UC19 <<include>> -->
+    <path d="M 525 270 L 640 295" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#incArrow)"/>
+    <text x="585" y="275" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="bold">«include»</text>
+
+    <!-- UC03 -> UC19 <<include>> -->
+    <path d="M 525 340 L 640 310" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#incArrow)"/>
+    <text x="585" y="335" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="bold">«include»</text>
+
+    <!-- UC02/03 -> UC04 <<include>> -->
+    <path d="M 420 375 L 420 400" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#incArrow)"/>
+    <text x="455" y="392" text-anchor="middle" fill="#2563EB" font-size="10.5" font-weight="bold">«include»</text>
+
+    <!-- UC19 -> UC20 <<extend>> (Blurry Image / Retake) -->
+    <path d="M 830 285 L 945 245" fill="none" stroke="#D97706" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#extArrow)"/>
+    <text x="895" y="258" text-anchor="middle" fill="#D97706" font-size="11" font-weight="bold">«extend»</text>
+
+    <!-- UC19 -> UC21 <<include>> -->
+    <path d="M 740 330 L 740 368" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#incArrow)"/>
+    <text x="772" y="352" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="bold">«include»</text>
+
+    <!-- UC21 -> UC22 <<include>> (Preserve formulas) -->
+    <path d="M 835 385 L 945 335" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#incArrow)"/>
+    <text x="895" y="352" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="bold">«include»</text>
+
+    <!-- UC21 -> UC23 <<extend>> (Fallback) -->
+    <path d="M 845 402 L 940 408" fill="none" stroke="#D97706" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#extArrow)"/>
+    <text x="895" y="398" text-anchor="middle" fill="#D97706" font-size="11" font-weight="bold">«extend»</text>
+
+    <!-- UC05 -> UC06 <<extend>> (Explain this in my language) -->
+    <path d="M 525 515 L 635 515" fill="none" stroke="#D97706" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#extArrow)"/>
+    <text x="580" y="507" text-anchor="middle" fill="#D97706" font-size="11" font-weight="bold">«extend»</text>
+
+    <!-- UC03 -> UC24 <<extend>> (Via WhatsApp) -->
+    <path d="M 520 360 Q 730 460 945 505" fill="none" stroke="#D97706" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#extArrow)"/>
+    <text x="735" y="475" text-anchor="middle" fill="#D97706" font-size="11" font-weight="bold">«extend»</text>
+
+    <!-- UC09 -> UC19 <<include>> (Teacher paper extraction) -->
+    <path d="M 470 745 Q 560 520 680 335" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#incArrow)"/>
+    <text x="590" y="550" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="bold">«include»</text>
+
+    <!-- UC11 -> UC25 <<include>> (Broadcast paper) -->
+    <path d="M 520 940 Q 740 920 945 870" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#incArrow)"/>
+    <text x="740" y="918" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="bold">«include»</text>
+
+    <!-- UC15 -> UC25 <<include>> (Parent reports) -->
+    <path d="M 845 855 L 940 855" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="5,4" marker-end="url(#incArrow)"/>
+    <text x="895" y="847" text-anchor="middle" fill="#2563EB" font-size="11" font-weight="bold">«include»</text>
+  </g>
+
+  <!-- USE CASES: COLUMN 1 (x = 420) -->
+
+  <!-- UC01: Register & Log In -->
+  <g id="uc-01" transform="translate(420, 180)">
+    <ellipse cx="0" cy="0" rx="95" ry="26" fill="#F8FAFC" stroke="#334155" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#0F172A">UC01: Register &amp; Log In</text>
+  </g>
+
+  <!-- UC02: Capture Question Screenshot (PRIMARY NEW) -->
+  <g id="uc-02" transform="translate(420, 260)">
+    <ellipse cx="0" cy="0" rx="105" ry="28" fill="#ECFDF5" stroke="#059669" stroke-width="2.2" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="12" font-weight="bold" fill="#065F46">UC02: Capture Question</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#047857">Photo / Screenshot (Textbook/Board)</text>
+  </g>
+
+  <!-- UC03: Upload Image / PDF (NEW) -->
+  <g id="uc-03" transform="translate(420, 345)">
+    <ellipse cx="0" cy="0" rx="105" ry="28" fill="#ECFDF5" stroke="#059669" stroke-width="2" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="12" font-weight="bold" fill="#065F46">UC03: Upload Question</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#047857">Image (JPG/PNG) or PDF</text>
+  </g>
+
+  <!-- UC04: Select Preferred Home Language -->
+  <g id="uc-04" transform="translate(420, 430)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#ECFDF5" stroke="#059669" stroke-width="1.8" filter="url(#cardShadow)"/>
+    <text x="0" y="-2" text-anchor="middle" font-size="12" font-weight="600" fill="#065F46">UC04: Select Home Language</text>
+    <text x="0" y="14" text-anchor="middle" font-size="9.5" fill="#10B981">(isiZulu, Sepedi, Setswana, etc.)</text>
+  </g>
+
+  <!-- UC05: Receive Instant Translated Question -->
+  <g id="uc-05" transform="translate(420, 515)">
+    <ellipse cx="0" cy="0" rx="105" ry="28" fill="#F0FDF4" stroke="#16A34A" stroke-width="2" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803D">UC05: Get Instant Translation</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#16A34A">Real-Time Translated Question</text>
+  </g>
+
+  <!-- UC07: Download Translated Question/Paper -->
+  <g id="uc-07" transform="translate(420, 600)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#1E40AF">UC07: Download Translation (PDF)</text>
+  </g>
+
+  <!-- UC08: Complete Practice Quiz -->
+  <g id="uc-08" transform="translate(420, 685)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#1E40AF">UC08: Write Practice Quiz</text>
+  </g>
+
+  <!-- UC09: Upload Full Question Paper (Flow B - Teacher) -->
+  <g id="uc-09" transform="translate(420, 770)">
+    <ellipse cx="0" cy="0" rx="105" ry="28" fill="#F8FAFC" stroke="#1E40AF" stroke-width="1.8" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="12" font-weight="bold" fill="#1E3A8A">UC09: Upload Full Paper</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#3B82F6">Flow B: Batch Class Paper (PDF/Word)</text>
+  </g>
+
+  <!-- UC10: Review & Edit Translation -->
+  <g id="uc-10" transform="translate(420, 855)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#F8FAFC" stroke="#1E40AF" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#1E3A8A">UC10: Review Full Paper</text>
+  </g>
+
+  <!-- UC11: Approve & Publish Class Paper -->
+  <g id="uc-11" transform="translate(420, 940)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#F8FAFC" stroke="#1E40AF" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#1E3A8A">UC11: Publish Class Paper</text>
+  </g>
+
+  <!-- UC13: View Class Performance & Analytics -->
+  <g id="uc-13" transform="translate(420, 1025)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#F8FAFC" stroke="#1E40AF" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#1E3A8A">UC13: View Class Analytics</text>
+  </g>
+
+  <!-- USE CASES: COLUMN 2 (x = 740) -->
+
+  <!-- UC19: AI Multimodal Vision Extraction (NEW) -->
+  <g id="uc-19" transform="translate(740, 300)">
+    <ellipse cx="0" cy="0" rx="108" ry="29" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2.2" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="12" font-weight="bold" fill="#5B21B6">UC19: Extract Content via Vision</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#7C3AED">OCR: Text, Formulas, Diagrams</text>
+  </g>
+
+  <!-- UC21: Translate Question Text -->
+  <g id="uc-21" transform="translate(740, 400)">
+    <ellipse cx="0" cy="0" rx="108" ry="29" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2.2" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="12" font-weight="bold" fill="#5B21B6">UC21: Translate Question Text</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#7C3AED">Gemini 2.5 Flash Primary</text>
+  </g>
+
+  <!-- UC06: Ask AI to Explain in Home Language (NEW/ENHANCED) -->
+  <g id="uc-06" transform="translate(740, 515)">
+    <ellipse cx="0" cy="0" rx="108" ry="29" fill="#F5F3FF" stroke="#7C3AED" stroke-width="2.2" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="12" font-weight="bold" fill="#5B21B6">UC06: Explain in My Language</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#7C3AED">Multilingual AI Chat Assistant</text>
+  </g>
+
+  <!-- UC14: View Child's Activity & Scores -->
+  <g id="uc-14" transform="translate(740, 685)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#FFFBEB" stroke="#D97706" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#92400E">UC14: View Child's Activity</text>
+  </g>
+
+  <!-- UC12: Create Practice Quizzes -->
+  <g id="uc-12" transform="translate(740, 770)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#EFF6FF" stroke="#1E40AF" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#1E3A8A">UC12: Create Practice Quizzes</text>
+  </g>
+
+  <!-- UC15: Receive WhatsApp/Email Reports -->
+  <g id="uc-15" transform="translate(740, 855)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#FFFBEB" stroke="#D97706" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#92400E">UC15: Receive Progress Reports</text>
+  </g>
+
+  <!-- UC16: Approve Teacher Accounts -->
+  <g id="uc-16" transform="translate(740, 940)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#F1F5F9" stroke="#475569" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#1E293B">UC16: Approve Teachers</text>
+  </g>
+
+  <!-- UC17: Manage Users & Languages -->
+  <g id="uc-17" transform="translate(740, 1025)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#F1F5F9" stroke="#475569" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#1E293B">UC17: Manage Languages &amp; Users</text>
+  </g>
+
+  <!-- USE CASES: COLUMN 3 (x = 1040) -->
+
+  <!-- UC20: Inspect Clarity (NEW) -->
+  <g id="uc-20" transform="translate(1040, 230)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#FFFBEB" stroke="#D97706" stroke-width="1.8" stroke-dasharray="4,3" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="11" font-weight="bold" fill="#92400E">UC20: Inspect Image Clarity</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#B45309">Prompt Retake if Blurry / Cut Off</text>
+  </g>
+
+  <!-- UC22: Preserve Formulas, Numbers & Symbols -->
+  <g id="uc-22" transform="translate(1040, 320)">
+    <ellipse cx="0" cy="0" rx="105" ry="28" fill="#FDF2F8" stroke="#DB2777" stroke-width="2" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="11" font-weight="bold" fill="#9D174D">UC22: Preserve Formulas &amp; Marks</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9" fill="#DB2777">Keep x², H₂O, Marks, Diagram Labels</text>
+  </g>
+
+  <!-- UC23: Multimodal LLM Fallback (GPT-4o-mini) -->
+  <g id="uc-23" transform="translate(1040, 410)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#FFFBEB" stroke="#D97706" stroke-width="1.8" stroke-dasharray="4,3" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="11" font-weight="bold" fill="#92400E">UC23: Multimodal Fallback</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#B45309">GPT-4o-mini Vision Failover</text>
+  </g>
+
+  <!-- UC24: Ingest Question via WhatsApp Bot (NEW) -->
+  <g id="uc-24" transform="translate(1040, 515)">
+    <ellipse cx="0" cy="0" rx="105" ry="28" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.8" filter="url(#cardShadow)"/>
+    <text x="0" y="-3" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#15803D">UC24: Ingest via WhatsApp</text>
+    <text x="0" y="13" text-anchor="middle" font-size="9.5" fill="#22C55E">Learner Sends Photo in WhatsApp</text>
+  </g>
+
+  <!-- UC25: Dispatch Alerts & Academic Reports -->
+  <g id="uc-25" transform="translate(1040, 855)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.8" filter="url(#cardShadow)"/>
+    <text x="0" y="-2" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#15803D">UC25: Dispatch Alerts</text>
+    <text x="0" y="14" text-anchor="middle" font-size="9.5" fill="#22C55E">WhatsApp &amp; Email via n8n</text>
+  </g>
+
+  <!-- UC18: Monitor Translation Quality & Logs -->
+  <g id="uc-18" transform="translate(1040, 1025)">
+    <ellipse cx="0" cy="0" rx="102" ry="27" fill="#F1F5F9" stroke="#475569" stroke-width="1.6" filter="url(#cardShadow)"/>
+    <text x="0" y="4" text-anchor="middle" font-size="12" font-weight="600" fill="#1E293B">UC18: Monitor Accuracy &amp; Logs</text>
+  </g>
+
+  <!-- PRIMARY ACTORS (LEFT SIDE) -->
+
+  <!-- Learner Actor (NOW PROMINENT TOP MAIN ACTOR) -->
+  <g id="actor-learner" transform="translate(100, 260)">
+    <circle cx="0" cy="-35" r="18" fill="#ECFDF5" stroke="#059669" stroke-width="3" filter="url(#actorShadow)"/>
+    <line x1="0" y1="-17" x2="0" y2="18" stroke="#059669" stroke-width="3" />
+    <line x1="-24" y1="-5" x2="24" y2="-5" stroke="#059669" stroke-width="3" stroke-linecap="round"/>
+    <line x1="0" y1="18" x2="-20" y2="50" stroke="#059669" stroke-width="3" stroke-linecap="round"/>
+    <line x1="0" y1="18" x2="20" y2="50" stroke="#059669" stroke-width="3" stroke-linecap="round"/>
+    <rect x="-60" y="60" width="120" height="38" rx="8" fill="#059669" filter="url(#actorShadow)"/>
+    <text x="0" y="78" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="bold">Learner</text>
+    <text x="0" y="91" text-anchor="middle" fill="#A7F3D0" font-size="10" font-weight="600">MAIN USER</text>
+  </g>
+
+  <!-- Teacher Actor -->
+  <g id="actor-teacher" transform="translate(100, 620)">
+    <circle cx="0" cy="-35" r="16" fill="#EFF6FF" stroke="#1E40AF" stroke-width="2.5" filter="url(#actorShadow)"/>
+    <line x1="0" y1="-19" x2="0" y2="15" stroke="#1E40AF" stroke-width="2.5" />
+    <line x1="-22" y1="-6" x2="22" y2="-6" stroke="#1E40AF" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="0" y1="15" x2="-18" y2="45" stroke="#1E40AF" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="0" y1="15" x2="18" y2="45" stroke="#1E40AF" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="-55" y="55" width="110" height="34" rx="6" fill="#1E40AF" />
+    <text x="0" y="71" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="bold">Teacher</text>
+    <text x="0" y="83" text-anchor="middle" fill="#93C5FD" font-size="9">Class Batch Flow</text>
+  </g>
+
+  <!-- Parent Actor -->
+  <g id="actor-parent" transform="translate(100, 880)">
+    <circle cx="0" cy="-35" r="16" fill="#FFFBEB" stroke="#D97706" stroke-width="2.5" filter="url(#actorShadow)"/>
+    <line x1="0" y1="-19" x2="0" y2="15" stroke="#D97706" stroke-width="2.5" />
+    <line x1="-22" y1="-6" x2="22" y2="-6" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="0" y1="15" x2="-18" y2="45" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="0" y1="15" x2="18" y2="45" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="-55" y="55" width="110" height="34" rx="6" fill="#D97706" />
+    <text x="0" y="71" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="bold">Parent</text>
+    <text x="0" y="83" text-anchor="middle" fill="#FDE68A" font-size="9">Monitoring Actor</text>
+  </g>
+
+  <!-- Admin Actor -->
+  <g id="actor-admin" transform="translate(100, 1040)">
+    <circle cx="0" cy="-35" r="16" fill="#F1F5F9" stroke="#475569" stroke-width="2.5" filter="url(#actorShadow)"/>
+    <line x1="0" y1="-19" x2="0" y2="15" stroke="#475569" stroke-width="2.5" />
+    <line x1="-22" y1="-6" x2="22" y2="-6" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="0" y1="15" x2="-18" y2="45" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="0" y1="15" x2="18" y2="45" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="-55" y="55" width="110" height="34" rx="6" fill="#334155" />
+    <text x="0" y="71" text-anchor="middle" fill="#FFFFFF" font-size="12" font-weight="bold">Admin</text>
+    <text x="0" y="83" text-anchor="middle" fill="#CBD5E1" font-size="9">System Supervisor</text>
+  </g>
+
+  <!-- SECONDARY / SYSTEM ACTORS (RIGHT SIDE) -->
+
+  <!-- AI Multimodal Engine -->
+  <g id="actor-ai" transform="translate(1400, 360)">
+    <rect x="-95" y="-50" width="190" height="100" rx="12" fill="#7C3AED" filter="url(#actorShadow)"/>
+    <text x="0" y="-24" text-anchor="middle" fill="#DDD6FE" font-size="10.5" font-weight="bold">«system actor»</text>
+    <text x="0" y="-2" text-anchor="middle" fill="#FFFFFF" font-size="13.5" font-weight="bold">AI Multimodal Engine</text>
+    <text x="0" y="16" text-anchor="middle" fill="#EDE9FE" font-size="11">Gemini 2.5 Flash Vision</text>
+    <text x="0" y="32" text-anchor="middle" fill="#C4B5FD" font-size="9.5">Fallback: GPT-4o-mini Vision</text>
+  </g>
+
+  <!-- Notification & Messaging Gateway -->
+  <g id="actor-notif" transform="translate(1400, 820)">
+    <rect x="-95" y="-50" width="190" height="100" rx="12" fill="#059669" filter="url(#actorShadow)"/>
+    <text x="0" y="-24" text-anchor="middle" fill="#A7F3D0" font-size="10.5" font-weight="bold">«system actor»</text>
+    <text x="0" y="-2" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="bold">Messaging Gateway</text>
+    <text x="0" y="16" text-anchor="middle" fill="#D1FAE5" font-size="11">WhatsApp Bot &amp; Email</text>
+    <text x="0" y="32" text-anchor="middle" fill="#6EE7B7" font-size="9.5">Triggered via n8n Webhook</text>
+  </g>
+
+  <!-- Legend -->
+  <g id="legend" transform="translate(260, 1155)">
+    <text x="0" y="12" font-size="11" font-weight="bold" fill="#64748B">LEGEND:</text>
+    <line x1="60" y1="8" x2="95" y2="8" stroke="#94A3B8" stroke-width="2"/>
+    <text x="105" y="12" font-size="11" fill="#475569">Association</text>
+
+    <line x1="195" y1="8" x2="230" y2="8" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#incArrow)"/>
+    <text x="240" y="12" font-size="11" font-weight="600" fill="#2563EB">«include»</text>
+
+    <line x1="330" y1="8" x2="365" y2="8" stroke="#D97706" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#extArrow)"/>
+    <text x="375" y="12" font-size="11" font-weight="600" fill="#D97706">«extend» (Conditional/Failover)</text>
+
+    <rect x="585" y="0" width="15" height="14" rx="3" fill="#ECFDF5" stroke="#059669" stroke-width="1.5"/>
+    <text x="608" y="12" font-size="11" font-weight="bold" fill="#065F46">Flow A: Learner Real-Time Vision</text>
+
+    <rect x="850" y="0" width="15" height="14" rx="3" fill="#F8FAFC" stroke="#1E40AF" stroke-width="1.5"/>
+    <text x="873" y="12" font-size="11" font-weight="600" fill="#1E3A8A">Flow B: Teacher Batch Paper</text>
+
+    <rect x="1090" y="0" width="15" height="14" rx="3" fill="#FDF2F8" stroke="#DB2777" stroke-width="1.5"/>
+    <text x="1113" y="12" font-size="11" font-weight="600" fill="#9D174D">Rule: Formula &amp; Mark Protection</text>
+  </g>
+</svg>

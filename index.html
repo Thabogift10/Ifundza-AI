@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IFundza AI</title>
+  <meta name="description"
+    content="AI-Powered system that translates Mathematics and Physical Sciences question papers and textbook screenshots into South African home languages while preserving formulas, numbers, and diagrams.">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Three.js 3D Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Custom Monochrome Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Subtle Monochrome Vignette -->
+  <div class="bg-vignette"></div>
+
+  <!-- Directional Route Transition Screen -->
+  <div class="page-transition-overlay" id="routeOverlay"></div>
+
+  <!-- Page Content Wrapper (Subject to 3D Depth Shift when modal opens) -->
+  <div id="page-content-wrapper">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo">
+        <div class="logo-badge">iF</div>
+        <div class="brand-name">iFundza <span>AI</span></div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#problem">Problem &amp; Opportunity</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#demo">Live Demo</a></li>
+        <li><a href="team.html" onclick="navigateSmooth(event, 'team.html', 'forward')">Team Gallery</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#demo" class="btn btn-secondary">Simulator</a>
+        <a href="#contact" class="btn btn-primary">Early Access</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section with 3D Canvas -->
+  <header class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="dot"></span>
+            <span>CAPS &amp; DBE Aligned &bull; Grades 8–12</span>
+          </div>
+
+          <h1 class="hero-title">
+            Learn Maths &amp; Science in the <span class="highlight">Language You Think In</span>.
+          </h1>
+
+          <p class="hero-description">
+            High school students in South Africa struggle not because they cannot do Maths, but because question papers
+            are written in English. <strong>iFundza AI</strong> allows learners to capture screenshots or photos of
+            questions and translates them instantly into their home language—preserving all formulas, numbers, and
+            diagrams.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#demo" class="btn btn-primary btn-lg">
+              <span>Launch Simulator</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="#solution" class="btn btn-secondary btn-lg">
+              <span>System Architecture</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <h4>100%</h4>
+              <p>Formula Integrity</p>
+            </div>
+            <div class="stat-item">
+              <h4>11</h4>
+              <p>Official Languages</p>
+            </div>
+            <div class="stat-item">
+              <h4>&lt; 2s</h4>
+              <p>Vision Processing</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D WebGL Interactive Element -->
+        <div class="hero-3d-wrapper">
+          <canvas id="canvas3d"></canvas>
+          <div class="canvas-overlay-card">
+            <div class="overlay-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </div>
+            <div class="overlay-text">
+              <h5>Gemini 2.5 Flash Vision</h5>
+              <p>3D Wireframe Simulation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Problem & Opportunity Section -->
+  <section id="problem" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Context &amp; Potential</span>
+        <h2 class="section-title">The Language Barrier in STEM Education</h2>
+        <p class="section-subtitle">
+          Over 80% of South African learners speak an indigenous language at home. When assessments are strictly
+          administered in formal English, mathematical potential is lost to linguistic complexity.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Problem Box -->
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h3>Problem Statement</h3>
+          <p>
+            High school students find it hard to learn and understand Mathematics and Physical Sciences, especially
+            those from disadvantaged and rural backgrounds, due to language barriers and the language of instruction.
+          </p>
+          <ul class="pill-list">
+            <li>
+              <span class="bullet-icon">&times;</span>
+              <span><strong>Linguistic Friction:</strong> Learners fail assessments not because they cannot solve the
+                problem, but because they do not understand the English question phrasing.</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&times;</span>
+              <span><strong>Educator Capacity Constraints:</strong> Teachers do not have the time to manually translate
+                question papers across 5 to 10 indigenous home languages.</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&times;</span>
+              <span><strong>Generic Translation Failures:</strong> Standard tools alter chemical notation, break
+                exponents, and corrupt question numbering ($x^2 \rightarrow x2$, $\text{H}_2\text{O} \rightarrow
+                \text{H2O}$).</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&times;</span>
+              <span><strong>Parental Support Gap:</strong> Parents who do not understand technical English are unable to
+                assist their children with schoolwork.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Opportunity Box -->
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h3>The Opportunity</h3>
+          <p>
+            Providing learners with a direct system that simplifies their educational journey by enabling them to learn
+            in the language they naturally think in.
+          </p>
+          <ul class="pill-list">
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>Empowering Disadvantaged Learners:</strong> Unlocking STEM career pathways for youth in
+                township and rural school districts.</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>Real-Time Self-Reliance:</strong> Students capture questions independently during homework
+                or exam prep without waiting for manual teacher translation.</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>Mathematical Precision:</strong> Preserving scientific notation, SI units, and structural
+                question marks completely intact.</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>Curriculum Alignment:</strong> Formatted to fully respect the South African Department of
+                Basic Education (DBE) CAPS standards.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proposed Solution Section -->
+  <section id="solution" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">System Design</span>
+        <h2 class="section-title">The Proposed Solution: iFundza AI</h2>
+        <p class="section-subtitle">
+          An AI-powered multimodal platform enabling students to upload or capture a question, analyze the input, and
+          receive a translated question with step-by-step guidance.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+          </div>
+          <h3>Flow A: Learner Real-Time Vision (Primary)</h3>
+          <p>
+            The learner takes a photo of a question from a textbook, whiteboard, or worksheet. The multimodal AI
+            extracts text, diagrams, and equations, translates the question to their home language, and provides an
+            immediate explanation option.
+          </p>
+          <ul class="pill-list">
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>Image &amp; Photo Capture:</strong> Direct ingestion of textbook, whiteboard, or past paper
+                photos.</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>WhatsApp Ingestion:</strong> Optional submission via WhatsApp for low-data learners.</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>Multimodal OCR:</strong> Gemini 2.5 Flash Vision extracts formulas and diagrams
+                simultaneously.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <h3>Flow B: Teacher Class Papers (Batch)</h3>
+          <p>
+            Educators upload full examination papers in PDF or Word format. The system automatically translates the
+            document, offers an approval editor, and publishes downloadable PDFs to learners.
+          </p>
+          <ul class="pill-list">
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>Full Examination Processing:</strong> Automated multi-page question paper translation in
+                under 2 minutes.</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>Teacher Audit &amp; Approval:</strong> Side-by-side verification before class-wide
+                publication.</span>
+            </li>
+            <li>
+              <span class="bullet-icon">&bull;</span>
+              <span><strong>Broadcast Notifications:</strong> Automated notifications delivered to learners and
+                parents.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works (4 Steps) -->
+  <section id="how-it-works" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Workflow</span>
+        <h2 class="section-title">How iFundza AI Works</h2>
+        <p class="section-subtitle">A streamlined, four-step multimodal translation pipeline.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-number">STEP 01</span>
+          <div class="step-icon-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+          </div>
+          <h4>Capture or Upload</h4>
+          <p>The learner captures a photo of a question from a textbook, exam paper, or classroom board.</p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-number">STEP 02</span>
+          <div class="step-icon-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+              </path>
+            </svg>
+          </div>
+          <h4>Vision Analysis</h4>
+          <p>The vision model analyzes English instructions, algebraic expressions, and scientific figures.</p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-number">STEP 03</span>
+          <div class="step-icon-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h4>Formula Protection</h4>
+          <p>Translates question text into the chosen language. Numbers, formulas, and marks stay untouched.</p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-number">STEP 04</span>
+          <div class="step-icon-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h4>AI Explanation</h4>
+          <p>Learners can request step-by-step conceptual explanations in their own home language.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Interactive Simulator Section -->
+  <section id="demo" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Interactive Demonstration</span>
+        <h2 class="section-title">Translation Simulator</h2>
+        <p class="section-subtitle">
+          Observe how mathematical formulas and marks remain unaltered while question wording translates into South
+          African languages.
+        </p>
+      </div>
+
+      <div class="simulator-card">
+        <!-- Toolbar -->
+        <div class="simulator-toolbar">
+          <div class="sample-selector">
+            <button class="sample-btn active" data-subject="maths">Mathematics (Grade 11)</button>
+            <button class="sample-btn" data-subject="physics">Physics (Grade 12)</button>
+            <button class="sample-btn" data-subject="chemistry">Chemistry (Grade 11)</button>
+          </div>
+
+          <div class="lang-selector">
+            <label for="sim-language-select">Target Language:</label>
+            <select id="sim-language-select" class="lang-dropdown">
+              <option value="isizulu">isiZulu</option>
+              <option value="isixhosa">isiXhosa</option>
+              <option value="sepedi">Sepedi</option>
+              <option value="setswana">Setswana</option>
+              <option value="sesotho">Sesotho</option>
+              <option value="afrikaans">Afrikaans</option>
+              <option value="xitsonga">Xitsonga</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Comparison Boxes -->
+        <div class="simulator-comparison">
+          <!-- English Original -->
+          <div class="sim-box">
+            <div class="sim-box-header">
+              <span id="sim-question-title">Mathematics (Grade 11 - Algebra)</span>
+              <span class="sim-badge english">Original (English)</span>
+            </div>
+            <div class="sim-content" id="sim-original-text">
+              Solve for x if <span class="math-formula">2x² + 5x - 3 = 0</span>. Show all working steps. <span
+                class="marks-tag">[4 marks]</span>
+            </div>
+          </div>
+
+          <!-- Home Language Translation -->
+          <div class="sim-box">
+            <div class="sim-box-header">
+              <span>Translated Output</span>
+              <span class="sim-badge translated" id="sim-target-badge">isiZulu Translation</span>
+            </div>
+            <div class="sim-content" id="sim-translated-text">
+              Xazulula u-x uma <span class="math-formula">2x² + 5x - 3 = 0</span>. Veza zonke izinyathelo zokubala.
+              <span class="marks-tag">[Amamaki angu-4]</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Tutor Explanation Bar -->
+        <div class="ai-tutor-banner">
+          <div class="tutor-text">
+            <div class="tutor-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <h6>Need step-by-step conceptual help with this question?</h6>
+              <p>Request an AI explanation in the learner's preferred home language.</p>
+            </div>
+          </div>
+          <button id="btn-explain" class="btn btn-primary">Explain This in My Language</button>
+        </div>
+
+        <!-- Expandable Explanation Box -->
+        <div id="sim-explanation-box"
+          style="display: none; margin-top: 16px; padding: 20px; background: #0a0a0a; border-radius: 8px; border: 1px solid var(--border-color); font-size: 14px; line-height: 1.6;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet the Leadership Team -->
+  <section id="team" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Organization</span>
+        <h2 class="section-title">Leadership Team</h2>
+        <p class="section-subtitle">
+          The team behind the development, quality assurance, business strategy, and deployment of iFundza AI.
+        </p>
+      </div>
+
+      <div class="team-grid">
+        <!-- Bongiwe Pamella Gama -->
+        <div class="team-card" onclick="openDetailModal('bongiwe')">
+          <div class="team-photo-frame">
+            <img src="images/bongiwe.jpg" alt="Bongiwe Pamella Gama - Director" loading="lazy">
+          </div>
+          <h4 class="team-name">Bongiwe Pamella Gama</h4>
+          <div class="team-role">Director</div>
+          <p class="team-bio">
+            Leads commercial growth, investor relations, and strategic institutional partnerships with the Department of
+            Basic Education (DBE).
+          </p>
+        </div>
+
+        <!-- Thabo Lubhele -->
+        <div class="team-card" onclick="openDetailModal('thabo')">
+          <div class="team-photo-frame">
+            <img src="images/thabo.jpg" alt="Thabo Lubhele - AI Software Developer" loading="lazy">
+          </div>
+          <h4 class="team-name">Thabo Lubhele</h4>
+          <div class="team-role">AI Software Developer</div>
+          <p class="team-bio">
+            Architect of the multimodal vision translation pipeline, fine-tuning Gemini 2.5 Flash for formula
+            preservation and low-resource African languages.
+          </p>
+        </div>
+
+        <!-- Rowan Nkosi -->
+        <div class="team-card" onclick="openDetailModal('rowan')">
+          <div class="team-monogram-frame">
+            <div class="team-monogram-circle">RN</div>
+          </div>
+          <h4 class="team-name">Rowan Nkosi</h4>
+          <div class="team-role">Product Manager</div>
+          <p class="team-bio">
+            Drives product strategy, learner-centric UX, WhatsApp integration, and feature roadmaps tailored for rural
+            and township schools.
+          </p>
+        </div>
+
+        <!-- Angel Shirindza -->
+        <div class="team-card" onclick="openDetailModal('angel')">
+          <div class="team-photo-frame">
+            <img src="images/angel.jpg" alt="Angel Shirindza - Business Analyst" loading="lazy">
+          </div>
+          <h4 class="team-name">Angel Shirindza</h4>
+          <div class="team-role">Business Analyst</div>
+          <p class="team-bio">
+            Conducts educational impact research, curriculum alignment (CAPS), user behavioral analysis, and data-driven
+            scaling metrics.
+          </p>
+        </div>
+
+        <!-- Noxolo Makhubedu -->
+        <div class="team-card" onclick="openDetailModal('noxolo')">
+          <div class="team-photo-frame">
+            <img src="images/noxolo.jpg" alt="Noxolo Makhubedu - Quality Assurance" loading="lazy">
+          </div>
+          <h4 class="team-name">Noxolo Makhubedu</h4>
+          <div class="team-role">QA &amp; Quality Assurance</div>
+          <p class="team-bio">
+            Oversees translation accuracy across 11 official languages, scientific formula validation, and zero-defect
+            software reliability.
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 36px;">
+        <a href="team.html" class="btn btn-secondary btn-lg" onclick="navigateSmooth(event, 'team.html', 'forward')">
+          <span>View Full Leadership Gallery</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action / Early Access -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="cta-banner">
+        <h2>Bring iFundza AI to Your Institution</h2>
+        <p>
+          Connect with our team to explore institutional pilots for schools, education districts, or provincial
+          education departments.
+        </p>
+
+        <form id="cta-form" class="cta-form">
+          <input type="email" placeholder="Enter your email address..." class="cta-input" required>
+          <button type="submit" class="btn btn-primary btn-lg">Join Early Access</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand-logo">
+            <div class="logo-badge">iF</div>
+            <div class="brand-name">iFundza <span>AI</span></div>
+          </a>
+          <p>
+            An AI-powered system designed to translate Mathematics and Physical Sciences question papers into indigenous
+            South African home languages.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Platform</h5>
+          <ul>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#demo">Translation Simulator</a></li>
+            <li><a href="use_case_diagram.html" target="_blank">Use Case Specifications</a></li>
+            <li><a href="#solution">CAPS Curriculum</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Languages</h5>
+          <ul>
+            <li><a href="#demo">isiZulu &bull; isiXhosa</a></li>
+            <li><a href="#demo">Sepedi &bull; Setswana</a></li>
+            <li><a href="#demo">Sesotho &bull; Afrikaans</a></li>
+            <li><a href="#demo">Xitsonga &bull; Tshivenda</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Leadership</h5>
+          <ul>
+            <li><a href="#team">Bongiwe Pamella Gama</a></li>
+            <li><a href="#team">Thabo Lubhele</a></li>
+            <li><a href="#team">Rowan Nkosi</a></li>
+            <li><a href="#team">Angel Shirindza</a></li>
+            <li><a href="#team">Noxolo Makhubedu</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 iFundza AI. All rights reserved.</div>
+        <div>Aligned with the South African Department of Basic Education (DBE) Curriculum Standards.</div>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- /#page-content-wrapper -->
+
+  <!-- ============================================================
+       SHARED-ELEMENT DETAIL MODAL (Morphs into View on Card Click)
+       ============================================================ -->
+  <div class="modal-overlay" id="detailModal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-container" id="modalContainer" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeDetailModal()" title="Close details">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <!-- Left Photo / Monogram Pane (Full Uncropped Display) -->
+      <div class="modal-photo-pane" id="modalPhotoPane">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Right Content Pane -->
+      <div class="modal-content-pane">
+        <div>
+          <span class="modal-role-badge" id="modalRoleBadge">Executive Leadership</span>
+          <h2 class="modal-name" id="modalName">Full Name</h2>
+          <div class="modal-title" id="modalTitle">Leadership Position</div>
+
+          <div class="modal-bio-heading">Executive Background &amp; Focus</div>
+          <p class="modal-bio-text" id="modalBio">Biography details...</p>
+
+          <div class="modal-bio-heading">Core Competencies &amp; Technologies</div>
+          <div class="skills-list modal-skills-box" id="modalSkills">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <a href="#contact" class="modal-btn modal-btn-primary" onclick="closeDetailModal()">
+            <span>Connect With Team</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <button class="modal-btn modal-btn-secondary" onclick="closeDetailModal()">
+            Close View
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+
+</html>

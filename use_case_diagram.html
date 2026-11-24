@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iFundza AI - UML Use Case Diagram</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #000000;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    .header-bar {
+      max-width: 1520px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 16px 24px;
+      background: #0d0d0d;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-sizing: border-box;
+    }
+    .header-bar h1 {
+      font-size: 20px;
+      margin: 0;
+      color: #ffffff;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-bar p {
+      margin: 4px 0 0 0;
+      font-size: 13px;
+      color: #a1a1aa;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: #ffffff;
+      color: #000000;
+      margin-left: 8px;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #ffffff;
+      padding: 9px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #e4e4e7;
+    }
+    .btn-secondary {
+      background: #171717;
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    .btn-secondary:hover {
+      background: #262626;
+    }
+    .diagram-container {
+      max-width: 1520px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-sizing: border-box;
+    }
+    .img-box {
+      width: 100%;
+      height: auto;
+      overflow: auto;
+      background: #f8fafc;
+    }
+    .info-card {
+      max-width: 1520px;
+      width: 100%;
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+      box-sizing: border-box;
+    }
+    .card {
+      background: #0d0d0d;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 14px;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .card p, .card li {
+      margin: 0;
+      font-size: 13px;
+      color: #a1a1aa;
+      line-height: 1.6;
+    }
+    .card ul {
+      margin: 8px 0 0 0;
+      padding-left: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-bar">
+    <div>
+      <h1>
+        iFundza AI - UML Use Case Diagram
+        <span class="badge">Learner Real-Time Vision</span>
+      </h1>
+      <p>Mathematical and Scientific Question Paper Translation System Architecture</p>
+    </div>
+    <div class="actions">
+      <a href="use_case_diagram.svg" target="_blank" class="btn btn-secondary">Open Vector SVG</a>
+      <a href="use_case_diagram.svg" download="iFundza_UML_Use_Case_Diagram.svg" class="btn">Download SVG</a>
+    </div>
+  </div>
+
+  <div class="diagram-container">
+    <div class="img-box">
+      <img src="use_case_diagram.svg" alt="iFundza AI UML Use Case Diagram" style="width:100%; display:block; min-width:900px;" />
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="card">
+      <h3>Flow A: Learner Real-Time Vision (Primary)</h3>
+      <ul>
+        <li><strong>Capture / Upload:</strong> Photograph question from textbook, whiteboard, or exam paper.</li>
+        <li><strong>Multimodal Vision:</strong> Gemini 2.5 Flash extracts text, math equations, and diagram labels simultaneously.</li>
+        <li><strong>Instant Translation:</strong> Translates to isiZulu, Sepedi, Setswana, etc. while preserving all formulas and marks.</li>
+        <li><strong>AI Chat Tutor:</strong> Learners can request step-by-step conceptual coaching in their home language.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Flow B: Teacher Class Papers (Batch)</h3>
+      <ul>
+        <li><strong>Full Papers:</strong> Teachers upload complete question papers in PDF or Word format.</li>
+        <li><strong>Review and Audit:</strong> Teachers verify translations side-by-side prior to publishing.</li>
+        <li><strong>Notifications:</strong> Broadcasts announcements to students and parents via WhatsApp and Email.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Multimodal Translation Rules</h3>
+      <ul>
+        <li><strong>Clarity Verification:</strong> Detects blurry or cropped photos and prompts learner to retake.</li>
+        <li><strong>Formula Protection:</strong> Algebraic variables, powers, and chemical equations are strictly preserved.</li>
+        <li><strong>Diagram Integrity:</strong> Diagram labels stay in original format while explanatory notes translate.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

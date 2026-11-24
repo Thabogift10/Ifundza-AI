@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iFundza AI — Leadership &amp; Team Gallery</title>
+  <meta name="description" content="Meet the founders, directors, and engineers behind iFundza AI - democratizing Mathematics and Science education across South Africa.">
+  
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Three.js 3D Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    :root {
+      --bg-primary: #000000;
+      --bg-surface: #0c0c0c;
+      --bg-card: #121212;
+      --border-color: rgba(255, 255, 255, 0.12);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-strong: rgba(255, 255, 255, 0.28);
+      --text-main: #ffffff;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      /* Snappy Spring & Ease Curves */
+      --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      perspective: 1200px;
+    }
+
+    /* Directional Route Transition Overlay */
+    .page-transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(0);
+      transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+    }
+
+    .page-transition-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Page Content Wrapper for Perspective Depth Shifts */
+    #page-content-wrapper {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      transform-origin: center center;
+      transition: transform 0.5s var(--ease-out-expo), filter 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo);
+      will-change: transform, filter, opacity;
+    }
+
+    /* Depth shift when modal is active */
+    body.modal-active #page-content-wrapper {
+      transform: scale(0.955) translateZ(-60px) translateY(-10px);
+      filter: brightness(0.45) blur(2px);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Ambient 3D Canvas Header */
+    #bg3d {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.35;
+    }
+
+    /* Navbar */
+    .navbar {
+      height: 74px;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: transform 0.25s var(--ease-spring);
+    }
+
+    .brand-logo:hover {
+      transform: scale(1.03);
+    }
+
+    .logo-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      background: #ffffff;
+      color: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      transition: transform 0.3s var(--ease-spring);
+    }
+
+    .brand-logo:hover .logo-badge {
+      transform: rotate(-6deg) scale(1.08);
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .brand-name span {
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    .nav-actions a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      transition: transform 0.25s var(--ease-spring), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-actions a:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-actions a:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    /* Header Section */
+    .gallery-header {
+      padding: 80px 0 40px 0;
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+      animation: headerEntrance 0.8s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes headerEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-dim);
+      border: 1px solid var(--border-color);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+      background: var(--bg-surface);
+      transition: transform 0.3s var(--ease-spring), border-color 0.3s ease;
+    }
+
+    .header-tag:hover {
+      transform: scale(1.05);
+      border-color: #ffffff;
+    }
+
+    .header-title {
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .header-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 36px 0 60px 0;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 9px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease-spring), background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .filter-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .filter-btn.active {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      box-shadow: 0 4px 18px rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .filter-btn:active {
+      transform: translateY(1px) scale(0.97);
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 32px;
+      margin-bottom: 100px;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .gallery-card {
+      grid-column: span 4;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.35s var(--ease-spring), border-color 0.3s ease, box-shadow 0.35s ease, opacity 0.4s var(--ease-out-expo);
+      will-change: transform, box-shadow;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-8px) scale(1.015);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .gallery-card:active {
+      transform: translateY(-3px) scale(0.99);
+    }
+
+    /* Top Row 2 Cards wider on desktop */
+    .gallery-card.featured-card {
+      grid-column: span 6;
+    }
+
+    /* Photo Frame - NEVER CUTS PICTURES (Full uncropped contain frame) */
+    .photo-frame {
+      width: 100%;
+      height: 440px;
+      background: radial-gradient(circle at center, #18181b 0%, #09090b 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 16px;
+    }
+
+    .photo-frame img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: grayscale(100%);
+      transition: transform 0.5s var(--ease-out-expo), filter 0.35s ease;
+      display: block;
+      border-radius: 6px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .gallery-card:hover .photo-frame img {
+      transform: scale(1.03);
+      filter: grayscale(0%);
+    }
+
+    /* Click-to-Expand Indicator Overlay */
+    .card-expand-indicator {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      opacity: 0.6;
+      transition: transform 0.3s var(--ease-spring), opacity 0.25s ease, background 0.25s ease;
+    }
+
+    .gallery-card:hover .card-expand-indicator {
+      opacity: 1;
+      background: #ffffff;
+      color: #000000;
+      transform: scale(1.1) rotate(45deg);
+    }
+
+    /* Monogram Fallback Frame */
+    .monogram-frame {
+      width: 100%;
+      height: 440px;
+      background: radial-gradient(circle at center, #27272a 0%, #09090b 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+      padding: 16px;
+    }
+
+    .monogram-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 800;
+      color: #ffffff;
+      background: #18181b;
+      margin-bottom: 18px;
+      transition: transform 0.4s var(--ease-spring), background 0.3s ease, color 0.3s ease;
+    }
+
+    .gallery-card:hover .monogram-circle {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: scale(1.1);
+    }
+
+    .monogram-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-dim);
+    }
+
+    /* Card Details */
+    .card-body {
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .role-badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 12px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-color);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .gallery-card:hover .role-badge {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .member-name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    .member-title {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .member-bio {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 22px;
+      flex-grow: 1;
+    }
+
+    .skills-list {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .skill-tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      background: #18181b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      transition: transform 0.2s var(--ease-spring), border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .gallery-card:hover .skill-tag {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+    }
+
+    /* Staggered Vertical Lift Filter Transitions */
+    .gallery-card.entering {
+      animation: cardVerticalLift 0.5s var(--ease-out-expo) forwards;
+    }
+
+    @keyframes cardVerticalLift {
+      0% {
+        opacity: 0;
+        transform: translateY(28px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .gallery-card.hidden-card {
+      display: none !important;
+    }
+
+    /* ============================================================
+       SHARED-ELEMENT DETAIL MODAL & PERSPECTIVE DEPTH SHIFT
+       ============================================================ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(12px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out-expo);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+    }
+
+    .modal-container {
+      background: #0f0f11;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      max-width: 960px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      position: relative;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.45s var(--ease-spring), opacity 0.4s ease;
+    }
+
+    .modal-overlay.open .modal-container {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #18181b;
+      border: 1px solid var(--border-color);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.25s var(--ease-spring), background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    /* Modal Photo Box - Full uncropped display */
+    .modal-photo-pane {
+      background: radial-gradient(circle at center, #1c1c20 0%, #09090b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      border-right: 1px solid var(--border-subtle);
+      position: relative;
+      min-height: 480px;
+    }
+
+    .modal-photo-pane img {
+      max-width: 100%;
+      max-height: 70vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+      display: block;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .modal-photo-pane:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.02);
+    }
+
+    .modal-monogram-box {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: #18181b;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .modal-content-pane {
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .modal-role-badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 14px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .modal-name {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      color: var(--text-dim);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .modal-bio-heading {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .modal-bio-text {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .modal-skills-box {
+      margin-bottom: 32px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .modal-btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.25s var(--ease-spring), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+    }
+
+    .modal-btn-primary {
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #ffffff;
+    }
+
+    .modal-btn-primary:hover {
+      background: #e4e4e7;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+    }
+
+    .modal-btn-secondary {
+      background: var(--bg-surface);
+      color: #ffffff;
+      border: 1px solid var(--border-color);
+    }
+
+    .modal-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+      background: #000000;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer p {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .footer a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease, text-decoration 0.2s ease;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .gallery-card {
+        grid-column: span 6 !important;
+      }
+      .modal-container {
+        grid-template-columns: 1fr;
+        max-height: 94vh;
+      }
+      .modal-photo-pane {
+        min-height: 360px;
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-title {
+        font-size: 34px;
+      }
+      .gallery-card {
+        grid-column: span 12 !important;
+      }
+      .photo-frame, .monogram-frame {
+        height: 380px;
+      }
+      .modal-content-pane {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient 3D Three.js Canvas -->
+  <canvas id="bg3d"></canvas>
+
+  <!-- Directional Route Transition Screen -->
+  <div class="page-transition-overlay" id="routeOverlay"></div>
+
+  <!-- Page Content Wrapper (Subject to 3D Depth Shift when modal opens) -->
+  <div id="page-content-wrapper">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container nav-container">
+        <a href="index.html" class="brand-logo" onclick="navigateSmooth(event, 'index.html', 'back')">
+          <div class="logo-badge">iF</div>
+          <div class="brand-name">iFundza <span>AI</span></div>
+        </a>
+
+        <div class="nav-actions">
+          <a href="index.html" onclick="navigateSmooth(event, 'index.html', 'back')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <span>Return to Homepage</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Gallery Header -->
+    <header class="gallery-header container">
+      <span class="header-tag">Executive Directory</span>
+      <h1 class="header-title">Founding Leadership &amp; Team Gallery</h1>
+      <p class="header-subtitle">
+        The founders, directors, researchers, and engineers building the multimodal AI architecture that translates Mathematics and Physical Sciences into South African home languages.
+      </p>
+
+      <!-- Filter Buttons with snappy hover feedback -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterGallery('all', event)">All Leadership (5)</button>
+        <button class="filter-btn" onclick="filterGallery('executive', event)">Directors &amp; Strategy</button>
+        <button class="filter-btn" onclick="filterGallery('technical', event)">AI &amp; Engineering</button>
+        <button class="filter-btn" onclick="filterGallery('product', event)">Product &amp; QA</button>
+      </div>
+    </header>
+
+    <!-- Gallery Container -->
+    <main class="container">
+      <div class="gallery-grid" id="gallery-container">
+
+        <!-- 1. Bongiwe Pamella Gama -->
+        <article class="gallery-card featured-card" data-category="executive" onclick="openDetailModal('bongiwe')">
+          <div class="photo-frame">
+            <div class="card-expand-indicator">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </div>
+            <!-- Full uncropped portrait photo -->
+            <img src="images/bongiwe.jpg" alt="Bongiwe Pamella Gama - Director" loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="role-badge">Director</span>
+            <h2 class="member-name">Bongiwe Pamella Gama</h2>
+            <div class="member-title">Director &amp; Commercial Strategist</div>
+            <p class="member-bio">
+              Directs executive strategy, investor engagements, and institutional partnerships with provincial education departments and the Department of Basic Education (DBE). Leading nationwide school rollout initiatives and educational sustainability.
+            </p>
+            <div class="skills-list">
+              <span class="skill-tag">Institutional Strategy</span>
+              <span class="skill-tag">DBE Relations</span>
+              <span class="skill-tag">Commercial Growth</span>
+              <span class="skill-tag">Public Sector</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Thabo Lubhele -->
+        <article class="gallery-card featured-card" data-category="technical" onclick="openDetailModal('thabo')">
+          <div class="photo-frame">
+            <div class="card-expand-indicator">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </div>
+            <!-- Full uncropped portrait photo -->
+            <img src="images/thabo.jpg" alt="Thabo Lubhele - AI Software Developer" loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="role-badge">AI Software Developer</span>
+            <h2 class="member-name">Thabo Lubhele</h2>
+            <div class="member-title">Lead AI Engineer &amp; Full-Stack Architect</div>
+            <p class="member-bio">
+              Architect of the multimodal vision processing pipeline. Fine-tunes Gemini 2.5 Flash for simultaneous equation recognition, diagram label extraction, and high-precision translation into low-resource South African languages without corrupting mathematical syntax.
+            </p>
+            <div class="skills-list">
+              <span class="skill-tag">Multimodal Vision</span>
+              <span class="skill-tag">Gemini 2.5 Flash</span>
+              <span class="skill-tag">Formula Guard</span>
+              <span class="skill-tag">n8n Automation</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Noxolo Makhubedu -->
+        <article class="gallery-card" data-category="product" onclick="openDetailModal('noxolo')">
+          <div class="photo-frame">
+            <div class="card-expand-indicator">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </div>
+            <!-- Full uncropped portrait photo -->
+            <img src="images/noxolo.jpg" alt="Noxolo Makhubedu - Quality Assurance" loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="role-badge">QA &amp; Quality Assurance</span>
+            <h2 class="member-name">Noxolo Makhubedu</h2>
+            <div class="member-title">Lead Quality Assurance Specialist</div>
+            <p class="member-bio">
+              Heads end-to-end quality assurance across 11 official South African languages. Verifies scientific formula preservation, oversees test suite automation, and ensures zero linguistic distortion in translated exam papers.
+            </p>
+            <div class="skills-list">
+              <span class="skill-tag">Linguistic QA</span>
+              <span class="skill-tag">Test Automation</span>
+              <span class="skill-tag">Curriculum Audit</span>
+              <span class="skill-tag">11 SA Languages</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Rowan Nkosi -->
+        <article class="gallery-card" data-category="product" onclick="openDetailModal('rowan')">
+          <div class="monogram-frame">
+            <div class="card-expand-indicator">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </div>
+            <div class="monogram-circle">RN</div>
+            <span class="monogram-label">Product Leadership</span>
+          </div>
+          <div class="card-body">
+            <span class="role-badge">Product Manager</span>
+            <h2 class="member-name">Rowan Nkosi</h2>
+            <div class="member-title">Head of Product Strategy &amp; UX</div>
+            <p class="member-bio">
+              Spearheads user-centric product management tailored for rural and township learners. Architects the zero-friction WhatsApp integration, student interaction workflows, and feedback loops between teachers and students.
+            </p>
+            <div class="skills-list">
+              <span class="skill-tag">Product Roadmaps</span>
+              <span class="skill-tag">WhatsApp Integration</span>
+              <span class="skill-tag">Learner UX</span>
+              <span class="skill-tag">Accessibility</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Angel Shirindza -->
+        <article class="gallery-card" data-category="executive" onclick="openDetailModal('angel')">
+          <div class="photo-frame">
+            <div class="card-expand-indicator">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </div>
+            <!-- Full uncropped portrait photo -->
+            <img src="images/angel.jpg" alt="Angel Shirindza - Business Analyst" loading="lazy">
+          </div>
+          <div class="card-body">
+            <span class="role-badge">Business Analyst</span>
+            <h2 class="member-name">Angel Shirindza</h2>
+            <div class="member-title">Educational Data Analyst &amp; Researcher</div>
+            <p class="member-bio">
+              Conducts research on South African matric pass rates, linguistic barriers in rural provinces, and CAPS alignment. Transforms classroom analytics into actionable insights for continuous model optimization.
+            </p>
+            <div class="skills-list">
+              <span class="skill-tag">CAPS Standards</span>
+              <span class="skill-tag">Data Analytics</span>
+              <span class="skill-tag">Impact Assessment</span>
+              <span class="skill-tag">Matric Insights</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 iFundza AI Platform. Built with pride in South Africa. <a href="index.html" onclick="navigateSmooth(event, 'index.html', 'back')">Return to main page</a></p>
+      </div>
+    </footer>
+
+  </div><!-- /#page-content-wrapper -->
+
+  <!-- ============================================================
+       SHARED-ELEMENT DETAIL MODAL (Morphs into View on Card Click)
+       ============================================================ -->
+  <div class="modal-overlay" id="detailModal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-container" id="modalContainer" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeDetailModal()" title="Close details">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <!-- Left Photo / Monogram Pane (Full Uncropped Display) -->
+      <div class="modal-photo-pane" id="modalPhotoPane">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Right Content Pane -->
+      <div class="modal-content-pane">
+        <div>
+          <span class="modal-role-badge" id="modalRoleBadge">Executive Leadership</span>
+          <h2 class="modal-name" id="modalName">Full Name</h2>
+          <div class="modal-title" id="modalTitle">Leadership Position</div>
+
+          <div class="modal-bio-heading">Executive Background &amp; Focus</div>
+          <p class="modal-bio-text" id="modalBio">Biography details...</p>
+
+          <div class="modal-bio-heading">Core Competencies &amp; Technologies</div>
+          <div class="skills-list modal-skills-box" id="modalSkills">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <a href="index.html#contact" class="modal-btn modal-btn-primary" onclick="closeDetailModal()">
+            <span>Connect With Team</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <button class="modal-btn modal-btn-secondary" onclick="closeDetailModal()">
+            Close View
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive JavaScript: Shared-Element Morph, Depth Shift, Directional Filtering & 3D Engine -->
+  <script>
+    // Detailed Profile Data
+    const teamProfiles = {
+      bongiwe: {
+        name: "Bongiwe Pamella Gama",
+        role: "Director",
+        title: "Director & Commercial Strategist",
+        image: "images/bongiwe.jpg",
+        bio: "Bongiwe leads executive governance, commercial sustainability, and strategic partnerships at iFundza AI. She interfaces directly with the Department of Basic Education (DBE), provincial education MECs, and institutional grant partners to champion mother-tongue STEM learning across under-resourced schools in South Africa.",
+        skills: ["Institutional Strategy", "DBE Policy Relations", "Commercial Growth", "Public Sector Partnerships", "Executive Governance", "Educational Equity"]
+      },
+      thabo: {
+        name: "Thabo Lubhele",
+        role: "AI Software Developer",
+        title: "Lead AI Engineer & Full-Stack Architect",
+        image: "images/thabo.jpg",
+        bio: "Thabo is the lead architect of the iFundza multimodal vision processing pipeline. He fine-tunes Gemini 2.5 Flash for simultaneous mathematical OCR, diagram decomposition, and zero-loss translation across 11 official South African languages, ensuring that complex formulas, scientific constants, and mathematical notations remain 100% intact.",
+        skills: ["Multimodal Vision", "Gemini 2.5 Flash", "Formula Guard Engine", "n8n Orchestration", "PostgreSQL / Supabase", "Full-Stack Architecture"]
+      },
+      noxolo: {
+        name: "Noxolo Makhubedu",
+        role: "QA & Quality Assurance",
+        title: "Lead Quality Assurance Specialist",
+        image: "images/noxolo.jpg",
+        bio: "Noxolo directs linguistic accuracy audits, automated QA test suites, and curriculum compliance protocols across all 11 official South African languages. Her specialized test suites safeguard against conceptual distortions in translated exam papers, certifying that learners receive scientifically rigorous translations in their home languages.",
+        skills: ["Linguistic QA Testing", "CAPS Curriculum Audit", "Automated Test Suites", "Formula Syntax Validation", "11 SA Official Languages", "Zero-Defect Delivery"]
+      },
+      rowan: {
+        name: "Rowan Nkosi",
+        role: "Product Manager",
+        title: "Head of Product Strategy & UX",
+        monogram: "RN",
+        bio: "Rowan spearheads product design and technical roadmaps tailored specifically for rural and township learners. He architects the ultra-lightweight WhatsApp bot workflow, allowing students with limited data connectivity or entry-level smartphones to capture photos of exam questions and receive instantaneous explanations in their home languages.",
+        skills: ["Product Roadmaps", "WhatsApp Bot Architecture", "Learner-Centric UX", "Low-Bandwidth Optimization", "User Feedback Loops", "Feature Prioritization"]
+      },
+      angel: {
+        name: "Angel Shirindza",
+        role: "Business Analyst",
+        title: "Educational Data Analyst & Researcher",
+        image: "images/angel.jpg",
+        bio: "Angel analyzes national matric performance trends, regional language demographics, and student comprehension barriers across rural provinces. Her empirical research directly steers feature prioritization and proves measurable improvements in student STEM pass rates through mother-tongue comprehension.",
+        skills: ["CAPS Standards Analysis", "Empirical Data Research", "Matric Pass Rate Trends", "Provincial Demographic Studies", "Impact Assessment", "Model KPI Tracking"]
+      }
+    };
+
+    // --- 1. SHARED-ELEMENT MODAL & PERSPECTIVE DEPTH SHIFT ---
+    const modalOverlay = document.getElementById('detailModal');
+    const modalContainer = document.getElementById('modalContainer');
+
+    function openDetailModal(memberKey) {
+      const data = teamProfiles[memberKey];
+      if (!data) return;
+
+      // Populate Modal Content
+      document.getElementById('modalRoleBadge').textContent = data.role;
+      document.getElementById('modalName').textContent = data.name;
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalBio').textContent = data.bio;
+
+      // Photo Pane - FULL UNCROPPED
+      const photoPane = document.getElementById('modalPhotoPane');
+      if (data.image) {
+        photoPane.innerHTML = `<img src="${data.image}" alt="${data.name}" id="modalPhotoImg">`;
+      } else {
+        photoPane.innerHTML = `<div class="modal-monogram-box">${data.monogram}</div>`;
+      }
+
+      // Skills List
+      const skillsContainer = document.getElementById('modalSkills');
+      skillsContainer.innerHTML = '';
+      data.skills.forEach(skill => {
+        const tag = document.createElement('span');
+        tag.className = 'skill-tag';
+        tag.textContent = skill;
+        skillsContainer.appendChild(tag);
+      });
+
+      // 1. Activate Depth Shift on Background Page
+      document.body.classList.add('modal-active');
+
+      // 2. Open Modal with smooth spring transition
+      modalOverlay.style.display = 'flex';
+      // Trigger reflow for clean CSS transition
+      void modalOverlay.offsetWidth;
+      modalOverlay.classList.add('open');
+
+      // Prevent background scroll
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetailModal() {
+      modalOverlay.classList.remove('open');
+      document.body.classList.remove('modal-active');
+      document.body.style.overflow = '';
+
+      setTimeout(() => {
+        modalOverlay.style.display = 'none';
+      }, 400);
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target === modalOverlay) {
+        closeDetailModal();
+      }
+    }
+
+    // Keyboard ESC to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('open')) {
+        closeDetailModal();
+      }
+    });
+
+    // --- 2. DIRECTIONAL SECTION & ROUTE TRANSITIONS ---
+    function navigateSmooth(event, destinationUrl, direction) {
+      event.preventDefault();
+      const overlay = document.getElementById('routeOverlay');
+      const wrapper = document.getElementById('page-content-wrapper');
+
+      // Directional slide
+      if (direction === 'back') {
+        wrapper.style.transform = 'translateX(40px)';
+        wrapper.style.opacity = '0';
+      } else {
+        wrapper.style.transform = 'translateX(-40px)';
+        wrapper.style.opacity = '0';
+      }
+
+      overlay.classList.add('active');
+
+      setTimeout(() => {
+        window.location.href = destinationUrl;
+      }, 350);
+    }
+
+    // --- 3. DIRECTIONAL STAGGERED FILTER TRANSITION ---
+    function filterGallery(category, event) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+      }
+
+      const cards = document.querySelectorAll('.gallery-card');
+      let visibleIndex = 0;
+
+      cards.forEach(card => {
+        const matches = (category === 'all' || card.getAttribute('data-category') === category);
+        if (matches) {
+          card.classList.remove('hidden-card');
+          card.classList.remove('entering');
+          void card.offsetWidth; // Force reflow
+          card.style.animationDelay = (visibleIndex * 0.06) + 's';
+          card.classList.add('entering');
+          visibleIndex++;
+        } else {
+          card.classList.add('hidden-card');
+          card.classList.remove('entering');
+        }
+      });
+    }
+
+    // --- 4. AMBIENT 3D PARTICLES (Three.js Wireframe Field) ---
+    const canvas = document.getElementById('bg3d');
+    if (canvas && typeof THREE !== 'undefined') {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 10;
+
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const pCount = 220;
+      const geo = new THREE.BufferGeometry();
+      const pos = new Float32Array(pCount * 3);
+      for (let i = 0; i < pCount * 3; i += 3) {
+        pos[i] = (Math.random() - 0.5) * 22;
+        pos[i + 1] = (Math.random() - 0.5) * 22;
+        pos[i + 2] = (Math.random() - 0.5) * 16;
+      }
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      const mat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff, transparent: true, opacity: 0.4 });
+      const pts = new THREE.Points(geo, mat);
+      scene.add(pts);
+
+      function loop() {
+        requestAnimationFrame(loop);
+        pts.rotation.y += 0.0003;
+        pts.rotation.x += 0.00015;
+        renderer.render(scene, camera);
+      }
+      loop();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -365,16 +365,10 @@
       filter: grayscale(0%);
     }
 
-    .photo-frame img[src$="noxolo.jpg"],
-    .modal-photo-pane img[src$="noxolo.jpg"],
-    .photo-frame img[src$="angel.jpg"],
-    .modal-photo-pane img[src$="angel.jpg"] {
-      filter: grayscale(0%);
-    }
-
     /* Click-to-Expand Indicator Overlay */
     .card-expand-indicator {
       position: absolute;
+      z-index: 1;
       top: 14px;
       right: 14px;
       width: 32px;
@@ -387,6 +381,7 @@
       align-items: center;
       justify-content: center;
       color: #ffffff;
+      pointer-events: none;
       opacity: 0.6;
       transition: transform 0.3s var(--ease-spring), opacity 0.25s ease, background 0.25s ease;
     }

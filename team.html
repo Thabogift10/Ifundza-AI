@@ -53,7 +53,6 @@
       line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
-      perspective: 1200px;
     }
 
     /* Directional Route Transition Overlay */
@@ -88,7 +87,7 @@
 
     /* Depth shift when modal is active */
     body.modal-active #page-content-wrapper {
-      transform: scale(0.955) translateZ(-60px) translateY(-10px);
+      transform: scale(0.955) translateY(-10px);
       filter: brightness(0.45) blur(2px);
       pointer-events: none;
       user-select: none;
@@ -366,6 +365,13 @@
       filter: grayscale(0%);
     }
 
+    .photo-frame img[src$="noxolo.jpg"],
+    .modal-photo-pane img[src$="noxolo.jpg"],
+    .photo-frame img[src$="angel.jpg"],
+    .modal-photo-pane img[src$="angel.jpg"] {
+      filter: grayscale(0%);
+    }
+
     /* Click-to-Expand Indicator Overlay */
     .card-expand-indicator {
       position: absolute;
@@ -566,7 +572,7 @@
       overflow-y: auto;
       box-shadow: 0 32px 80px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1);
       display: grid;
-      grid-template-columns: 1fr 1.25fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
       position: relative;
       transform: scale(0.92) translateY(20px);
       transition: transform 0.45s var(--ease-spring), opacity 0.4s ease;
@@ -611,6 +617,8 @@
       border-right: 1px solid var(--border-subtle);
       position: relative;
       min-height: 480px;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .modal-photo-pane img {
@@ -650,6 +658,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      min-width: 0;
     }
 
     .modal-role-badge {
@@ -779,11 +788,12 @@
         grid-column: span 6 !important;
       }
       .modal-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         max-height: 94vh;
       }
       .modal-photo-pane {
         min-height: 360px;
+        padding-top: 64px;
         border-right: none;
         border-bottom: 1px solid var(--border-subtle);
       }

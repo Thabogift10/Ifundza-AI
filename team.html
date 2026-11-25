@@ -53,9 +53,10 @@
       line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
+      perspective: 1200px;
     }
 
-    /* Directional Route Transition Overlay */
+    /* Directional Route Transition Screen */
     .page-transition-overlay {
       position: fixed;
       top: 0;
@@ -87,7 +88,7 @@
 
     /* Depth shift when modal is active */
     body.modal-active #page-content-wrapper {
-      transform: scale(0.955) translateY(-10px);
+      transform: scale(0.955) translateZ(-60px) translateY(-10px);
       filter: brightness(0.45) blur(2px);
       pointer-events: none;
       user-select: none;
@@ -192,12 +193,12 @@
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
-      transform: translateY(-2px) scale(1.02);
+      transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
     }
 
     .nav-actions a:active {
-      transform: translateY(1px) scale(0.98);
+      transform: translateY(1px);
     }
 
     /* Header Section */
@@ -259,7 +260,7 @@
       display: flex;
       justify-content: center;
       gap: 10px;
-      margin: 36px 0 60px 0;
+      margin: 36px 0 50px 0;
       flex-wrap: wrap;
     }
 
@@ -280,7 +281,7 @@
       background: rgba(255, 255, 255, 0.1);
       color: #ffffff;
       border-color: rgba(255, 255, 255, 0.3);
-      transform: translateY(-3px) scale(1.02);
+      transform: translateY(-2px);
     }
 
     .filter-btn.active {
@@ -292,20 +293,26 @@
     }
 
     .filter-btn:active {
-      transform: translateY(1px) scale(0.97);
+      transform: translateY(1px);
     }
 
-    /* Gallery Grid */
+    /* Gallery Grid - CENTER ALIGNED FLEXBOX (Zero Overlap, Perfect Centering) */
     .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      gap: 30px;
       margin-bottom: 100px;
-      transition: all 0.4s var(--ease-out-expo);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .gallery-card {
-      grid-column: span 4;
+      flex: 0 1 350px;
+      min-width: 290px;
+      max-width: 370px;
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: 14px;
@@ -314,29 +321,25 @@
       flex-direction: column;
       position: relative;
       cursor: pointer;
-      transition: transform 0.35s var(--ease-spring), border-color 0.3s ease, box-shadow 0.35s ease, opacity 0.4s var(--ease-out-expo);
+      transition: transform 0.3s var(--ease-spring), border-color 0.25s ease, box-shadow 0.3s ease;
       will-change: transform, box-shadow;
     }
 
     .gallery-card:hover {
-      transform: translateY(-8px) scale(1.015);
+      transform: translateY(-6px);
+      z-index: 10;
       border-color: rgba(255, 255, 255, 0.5);
       box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.2);
     }
 
     .gallery-card:active {
-      transform: translateY(-3px) scale(0.99);
+      transform: translateY(-2px);
     }
 
-    /* Top Row 2 Cards wider on desktop */
-    .gallery-card.featured-card {
-      grid-column: span 6;
-    }
-
-    /* Photo Frame - NEVER CUTS PICTURES (Full uncropped contain frame) */
+    /* Photo Frame - PERFECTLY CENTER ALIGNED & NEVER CROPS */
     .photo-frame {
       width: 100%;
-      height: 440px;
+      height: 420px;
       background: radial-gradient(circle at center, #18181b 0%, #09090b 100%);
       position: relative;
       overflow: hidden;
@@ -353,22 +356,22 @@
       width: auto;
       height: auto;
       object-fit: contain;
+      margin: 0 auto;
       filter: grayscale(100%);
-      transition: transform 0.5s var(--ease-out-expo), filter 0.35s ease;
+      transition: transform 0.4s var(--ease-out-expo), filter 0.3s ease;
       display: block;
       border-radius: 6px;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
     }
 
     .gallery-card:hover .photo-frame img {
-      transform: scale(1.03);
+      transform: scale(1.02);
       filter: grayscale(0%);
     }
 
     /* Click-to-Expand Indicator Overlay */
     .card-expand-indicator {
       position: absolute;
-      z-index: 1;
       top: 14px;
       right: 14px;
       width: 32px;
@@ -381,22 +384,22 @@
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      pointer-events: none;
       opacity: 0.6;
       transition: transform 0.3s var(--ease-spring), opacity 0.25s ease, background 0.25s ease;
+      z-index: 5;
     }
 
     .gallery-card:hover .card-expand-indicator {
       opacity: 1;
       background: #ffffff;
       color: #000000;
-      transform: scale(1.1) rotate(45deg);
+      transform: rotate(45deg);
     }
 
-    /* Monogram Fallback Frame */
+    /* Monogram Frame - MATCHES PHOTO FRAME DIMENSIONS & PERFECTLY CENTERED */
     .monogram-frame {
       width: 100%;
-      height: 440px;
+      height: 420px;
       background: radial-gradient(circle at center, #27272a 0%, #09090b 100%);
       display: flex;
       flex-direction: column;
@@ -420,14 +423,14 @@
       color: #ffffff;
       background: #18181b;
       margin-bottom: 18px;
-      transition: transform 0.4s var(--ease-spring), background 0.3s ease, color 0.3s ease;
+      transition: transform 0.35s var(--ease-spring), background 0.3s ease, color 0.3s ease;
     }
 
     .gallery-card:hover .monogram-circle {
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
-      transform: scale(1.1);
+      transform: scale(1.06);
     }
 
     .monogram-label {
@@ -439,10 +442,11 @@
 
     /* Card Details */
     .card-body {
-      padding: 28px 24px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       flex-grow: 1;
+      text-align: left;
     }
 
     .role-badge {
@@ -467,10 +471,10 @@
     }
 
     .member-name {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 800;
       letter-spacing: -0.5px;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       color: #ffffff;
     }
 
@@ -478,14 +482,14 @@
       font-size: 13px;
       color: var(--text-dim);
       font-weight: 600;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .member-bio {
-      font-size: 13.5px;
+      font-size: 13px;
       color: var(--text-muted);
       line-height: 1.6;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       flex-grow: 1;
     }
 
@@ -493,7 +497,7 @@
       display: flex;
       gap: 6px;
       flex-wrap: wrap;
-      padding-top: 16px;
+      padding-top: 14px;
       border-top: 1px solid var(--border-subtle);
     }
 
@@ -505,7 +509,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-muted);
       font-family: var(--font-mono);
-      transition: transform 0.2s var(--ease-spring), border-color 0.2s ease, color 0.2s ease;
+      transition: border-color 0.2s ease, color 0.2s ease;
     }
 
     .gallery-card:hover .skill-tag {
@@ -513,29 +517,27 @@
       color: #ffffff;
     }
 
+    .gallery-card.hidden-card {
+      display: none !important;
+    }
+
     /* Staggered Vertical Lift Filter Transitions */
     .gallery-card.entering {
-      animation: cardVerticalLift 0.5s var(--ease-out-expo) forwards;
+      animation: cardVerticalLift 0.4s var(--ease-out-expo) forwards;
     }
 
     @keyframes cardVerticalLift {
       0% {
         opacity: 0;
-        transform: translateY(28px) scale(0.97);
+        transform: translateY(20px);
       }
       100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
       }
     }
 
-    .gallery-card.hidden-card {
-      display: none !important;
-    }
-
-    /* ============================================================
-       SHARED-ELEMENT DETAIL MODAL & PERSPECTIVE DEPTH SHIFT
-       ============================================================ */
+    /* Modal Overlay & Container */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -561,16 +563,16 @@
       background: #0f0f11;
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 16px;
-      max-width: 960px;
+      max-width: 940px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
       box-shadow: 0 32px 80px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1);
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      grid-template-columns: 1fr 1.25fr;
       position: relative;
-      transform: scale(0.92) translateY(20px);
-      transition: transform 0.45s var(--ease-spring), opacity 0.4s ease;
+      transform: scale(0.94) translateY(16px);
+      transition: transform 0.4s var(--ease-spring), opacity 0.4s ease;
     }
 
     .modal-overlay.open .modal-container {
@@ -599,10 +601,9 @@
       background: #ffffff;
       color: #000000;
       border-color: #ffffff;
-      transform: scale(1.1) rotate(90deg);
+      transform: rotate(90deg);
     }
 
-    /* Modal Photo Box - Full uncropped display */
     .modal-photo-pane {
       background: radial-gradient(circle at center, #1c1c20 0%, #09090b 100%);
       display: flex;
@@ -611,9 +612,7 @@
       padding: 24px;
       border-right: 1px solid var(--border-subtle);
       position: relative;
-      min-height: 480px;
-      min-width: 0;
-      overflow: hidden;
+      min-height: 440px;
     }
 
     .modal-photo-pane img {
@@ -626,34 +625,33 @@
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
       display: block;
       filter: grayscale(100%);
-      transition: filter 0.4s ease, transform 0.4s var(--ease-out-expo);
+      transition: filter 0.4s ease;
+      margin: 0 auto;
     }
 
     .modal-photo-pane:hover img {
       filter: grayscale(0%);
-      transform: scale(1.02);
     }
 
     .modal-monogram-box {
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       background: #18181b;
       border: 2px solid rgba(255, 255, 255, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 42px;
+      font-size: 38px;
       font-weight: 800;
       color: #ffffff;
     }
 
     .modal-content-pane {
-      padding: 40px 32px;
+      padding: 36px 30px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-width: 0;
     }
 
     .modal-role-badge {
@@ -672,7 +670,7 @@
     }
 
     .modal-name {
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: -1px;
       line-height: 1.2;
@@ -681,10 +679,10 @@
     }
 
     .modal-title {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text-dim);
       font-weight: 600;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .modal-bio-heading {
@@ -696,14 +694,14 @@
     }
 
     .modal-bio-text {
-      font-size: 14.5px;
+      font-size: 14px;
       color: var(--text-muted);
-      line-height: 1.7;
-      margin-bottom: 28px;
+      line-height: 1.65;
+      margin-bottom: 24px;
     }
 
     .modal-skills-box {
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
 
     .modal-actions {
@@ -735,7 +733,7 @@
 
     .modal-btn-primary:hover {
       background: #e4e4e7;
-      transform: translateY(-2px) scale(1.02);
+      transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
     }
 
@@ -780,15 +778,15 @@
     /* Responsive */
     @media (max-width: 1024px) {
       .gallery-card {
-        grid-column: span 6 !important;
+        flex: 0 1 calc(50% - 20px);
+        max-width: 440px;
       }
       .modal-container {
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: 1fr;
         max-height: 94vh;
       }
       .modal-photo-pane {
         min-height: 360px;
-        padding-top: 64px;
         border-right: none;
         border-bottom: 1px solid var(--border-subtle);
       }
@@ -799,10 +797,11 @@
         font-size: 34px;
       }
       .gallery-card {
-        grid-column: span 12 !important;
+        flex: 0 1 100%;
+        max-width: 100%;
       }
       .photo-frame, .monogram-frame {
-        height: 380px;
+        height: 360px;
       }
       .modal-content-pane {
         padding: 24px;
@@ -855,12 +854,12 @@
       </div>
     </header>
 
-    <!-- Gallery Container -->
+    <!-- Gallery Container (Flex Centered Layout, Zero Overlap) -->
     <main class="container">
       <div class="gallery-grid" id="gallery-container">
 
         <!-- 1. Bongiwe Pamella Gama -->
-        <article class="gallery-card featured-card" data-category="executive" onclick="openDetailModal('bongiwe')">
+        <article class="gallery-card" data-category="executive" onclick="openDetailModal('bongiwe')">
           <div class="photo-frame">
             <div class="card-expand-indicator">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
@@ -885,7 +884,7 @@
         </article>
 
         <!-- 2. Thabo Lubhele -->
-        <article class="gallery-card featured-card" data-category="technical" onclick="openDetailModal('thabo')">
+        <article class="gallery-card" data-category="technical" onclick="openDetailModal('thabo')">
           <div class="photo-frame">
             <div class="card-expand-indicator">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
@@ -1122,8 +1121,7 @@
 
       // 2. Open Modal with smooth spring transition
       modalOverlay.style.display = 'flex';
-      // Trigger reflow for clean CSS transition
-      void modalOverlay.offsetWidth;
+      void modalOverlay.offsetWidth; // Force reflow
       modalOverlay.classList.add('open');
 
       // Prevent background scroll
@@ -1159,7 +1157,6 @@
       const overlay = document.getElementById('routeOverlay');
       const wrapper = document.getElementById('page-content-wrapper');
 
-      // Directional slide
       if (direction === 'back') {
         wrapper.style.transform = 'translateX(40px)';
         wrapper.style.opacity = '0';
@@ -1192,7 +1189,7 @@
           card.classList.remove('hidden-card');
           card.classList.remove('entering');
           void card.offsetWidth; // Force reflow
-          card.style.animationDelay = (visibleIndex * 0.06) + 's';
+          card.style.animationDelay = (visibleIndex * 0.05) + 's';
           card.classList.add('entering');
           visibleIndex++;
         } else {

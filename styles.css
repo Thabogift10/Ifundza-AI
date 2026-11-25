@@ -765,43 +765,52 @@ body.modal-active #page-content-wrapper {
   line-height: 1.6;
 }
 
-/* Team Section (Monochrome, Snappy & Uncropped Photos) */
+/* Team Section (Monochrome, Snappy, Centered & Uncropped Photos) */
 .team-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 24px;
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
 .team-card {
+  flex: 0 1 216px;
+  min-width: 200px;
+  max-width: 232px;
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 16px;
   text-align: center;
-  transition: transform 0.35s var(--ease-spring), border-color 0.3s ease, box-shadow 0.35s ease;
+  transition: transform 0.3s var(--ease-spring), border-color 0.25s ease, box-shadow 0.3s ease;
   position: relative;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .team-card:hover {
   border-color: rgba(255, 255, 255, 0.45);
-  transform: translateY(-6px) scale(1.02);
+  transform: translateY(-6px);
+  z-index: 10;
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
 .team-card:active {
-  transform: translateY(-2px) scale(0.99);
+  transform: translateY(-2px);
 }
 
-/* Photo Frame - NEVER CUTS PICTURES (Full Aspect-Ratio Contain Frame) */
+/* Photo Frame - NEVER CUTS PICTURES (Full Aspect-Ratio Contain Frame & Perfectly Centered) */
 .team-photo-frame {
   width: 100%;
-  height: 250px;
+  height: 240px;
   background: radial-gradient(circle at center, #1c1c20 0%, #09090b 100%);
   border-radius: 8px;
-  margin-bottom: 14px;
+  margin: 0 auto 14px auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -817,25 +826,26 @@ body.modal-active #page-content-wrapper {
   width: auto;
   height: auto;
   object-fit: contain;
+  margin: 0 auto;
   filter: grayscale(100%);
   display: block;
   border-radius: 4px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-  transition: transform 0.45s var(--ease-out-expo), filter 0.3s ease;
+  transition: transform 0.4s var(--ease-out-expo), filter 0.3s ease;
 }
 
 .team-card:hover .team-photo-frame img {
-  transform: scale(1.04);
+  transform: scale(1.03);
   filter: grayscale(0%);
 }
 
 /* Monogram Frame for Members without Photos */
 .team-monogram-frame {
   width: 100%;
-  height: 250px;
+  height: 240px;
   background: radial-gradient(circle at center, #27272a 0%, #09090b 100%);
   border-radius: 8px;
-  margin-bottom: 14px;
+  margin: 0 auto 14px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -863,7 +873,7 @@ body.modal-active #page-content-wrapper {
   background: #ffffff;
   color: #000000;
   border-color: #ffffff;
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .team-name {
@@ -1191,8 +1201,9 @@ body.modal-active #page-content-wrapper {
 
 /* Responsive Media Queries */
 @media (max-width: 1080px) {
-  .team-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .team-card {
+    flex: 0 1 240px;
+    max-width: 260px;
   }
   .steps-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1223,8 +1234,9 @@ body.modal-active #page-content-wrapper {
   .grid-2 {
     grid-template-columns: 1fr;
   }
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .team-card {
+    flex: 0 1 260px;
+    max-width: 280px;
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
@@ -1235,8 +1247,9 @@ body.modal-active #page-content-wrapper {
   .hero-title {
     font-size: 36px;
   }
-  .team-grid {
-    grid-template-columns: 1fr;
+  .team-card {
+    flex: 0 1 100%;
+    max-width: 320px;
   }
   .steps-grid {
     grid-template-columns: 1fr;
